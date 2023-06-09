@@ -1,4 +1,4 @@
-package com.anncode.offersandcoupons
+package com.anncode.offersandcoupons.view
 
 import android.content.Intent
 import android.net.Uri
@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import com.anncode.offersandcoupons.model.Coupon
+import com.anncode.offersandcoupons.R
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 

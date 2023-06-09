@@ -1,31 +1,17 @@
-package com.anncode.offersandcoupons
+package com.anncode.offersandcoupons.model
 
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.Log
-import com.anncode.offersandcoupons.model.ApiAdapter
+import com.anncode.offersandcoupons.presenter.CouponPresenter
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainActivity : AppCompatActivity() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        supportActionBar?.hide()
-
-        // VIEW
-        val rvCoupons: RecyclerView = findViewById(R.id.rvCoupons)
-        rvCoupons.layoutManager = LinearLayoutManager(this)
-        val coupons = ArrayList<Coupon>()
-        // VIEW
-
-        // CONTROLLER
+class CouponRepositoryImpl(var couponPresenter: CouponPresenter) : CouponRepository {
+    //Toda la lógica de conexión
+    override fun getCouponsAPI() {
+        var coupons: ArrayList<Coupon>? = ArrayList<Coupon>()
         val apiAdapter = ApiAdapter()
         val apiService = apiAdapter.getClientService()
         val call = apiService.getCoupons()
@@ -41,13 +27,10 @@ class MainActivity : AppCompatActivity() {
                 offersJsonArray?.forEach { jsonElement: JsonElement ->
                     var jsonObject = jsonElement.asJsonObject
                     var coupon = Coupon(jsonObject)
-                    coupons.add(coupon)
+                    coupons?.add(coupon)
                 }
-                // VIEW
-                rvCoupons.adapter = RecyclerCouponsAdapter(coupons, R.layout.card_coupon)
-                // VIEW
+                couponPresenter.showCoupons(coupons)
             }
         })
-        // CONTROLLER
     }
 }
