@@ -26,6 +26,7 @@ android {
         //noinspection DataBindingWithoutKapt
         enabled = true
     }
+    namespace 'com.anncode.offersandcoupons'
 }
 
 dependencies {
