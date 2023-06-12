@@ -28,19 +28,32 @@ class MainActivity : AppCompatActivity() {
     fun setupBindings(savedInstanceState: Bundle?) {
         var activityMainBinding: ActivityMainBinding =
             DataBindingUtil.setContentView(this, R.layout.activity_main)
-        couponViewModel = ViewModelProviders.of(this).get(CouponViewModel::class.java)
+        couponViewModel = ViewModelProviders.of(this)[CouponViewModel::class.java]
         activityMainBinding.model = CouponViewModel()
         setupListUpdate()
     }
 
     fun setupListUpdate() {
-        // callCoupons
-        couponViewModel?.callCoupons()
+        try {
+            // callCoupons
+            couponViewModel?.callCoupons()
 
-        // getCoupons
-        couponViewModel?.getCoupons()?.observe(this, Observer { coupons: List<Coupon> ->
-            Log.w("COUPON", coupons.get(0).title)
-            couponViewModel?.setCouponsInRecyclerAdapter(coupons)
-        })
+            // getCoupons
+            couponViewModel?.getCoupons()?.observe(this, Observer { coupons: List<Coupon> ->
+                Log.w("COUPON", coupons[0].title)
+                couponViewModel?.setCouponsInRecyclerAdapter(coupons)
+            })
+            setupListClick()
+        } catch (e : Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    fun setupListClick() {
+        couponViewModel?.getCouponSelected()?.observe(this,
+            Observer { coupon: Coupon ->
+                Log.i("CLICK", coupon.title)
+
+            })
     }
 }

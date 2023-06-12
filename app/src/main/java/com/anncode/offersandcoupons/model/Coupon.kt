@@ -71,8 +71,14 @@ class Coupon(couponJson: JsonObject?) : Serializable {
         val words = string.split(delimiter)
         var newString: String = ""
 
-        for (i in 0..quantity) {
-            newString += words.get(i) + " "
+        if (words.size < quantity) {
+            for (i in 0..words.size) {
+                newString += words.get(i) + " "
+            }
+        } else {
+            for (i in 0..quantity) {
+                newString += words.get(i) + " "
+            }
         }
 
         return newString

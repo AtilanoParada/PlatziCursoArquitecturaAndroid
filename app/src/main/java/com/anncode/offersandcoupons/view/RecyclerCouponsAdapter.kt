@@ -1,20 +1,13 @@
 package com.anncode.offersandcoupons.view
 
-import android.content.Intent
-import androidx.recyclerview.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.RecyclerView
 import com.anncode.offersandcoupons.BR
 import com.anncode.offersandcoupons.model.Coupon
-import com.anncode.offersandcoupons.R
 import com.anncode.offersandcoupons.viewmodel.CouponViewModel
-import com.squareup.picasso.Picasso
 
 class RecyclerCouponsAdapter(var couponViewModel: CouponViewModel, var resource: Int) :
     RecyclerView.Adapter<RecyclerCouponsAdapter.CardCouponHolder>() {
